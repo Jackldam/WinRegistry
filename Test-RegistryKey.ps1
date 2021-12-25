@@ -1,18 +1,22 @@
 function Test-RegistryKey {
     <#
     .SYNOPSIS
-        Short description
+        Test if an registry key is present
     .DESCRIPTION
-        Long description
+        Test if an registry key is present
     .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
+        PS C:\> Test-RegistryKey "HKEY_LOCAL_MACHINE\SOFTWARE\GitForWindows\InstallPath"
+
+        True
+    .EXAMPLE
+        PS C:\> Test-RegistryKey "HKEY_LOCAL_MACHINE\SOFTWARE\GitForWindows\InstallPat"
+
+        False
     .OUTPUTS
-        Output (if any)
+        Boolean
     .NOTES
-        General notes
+        25-12-2021 jack den Ouden <jack@ldam.nl>
+        Function created, tested and verified as functional.
     #>
     [CmdletBinding()]
     param (

@@ -1,7 +1,7 @@
 function Set-RegistryKey {
     <#
     .SYNOPSIS
-        Short description
+        Set an registry key 
     .DESCRIPTION
         Long description
     .EXAMPLE
@@ -12,7 +12,8 @@ function Set-RegistryKey {
     .OUTPUTS
         Output (if any)
     .NOTES
-        General notes
+        25-12-2021 jack den Ouden <jack@ldam.nl>
+        Function created, tested and verified as functional.
     #>
     [CmdletBinding()]
     param (
@@ -27,7 +28,11 @@ function Set-RegistryKey {
         # Registry Value Types
         [Parameter(Mandatory)]
         [validateset("Binary", "DWord", "ExpandString", "MultiString", "String", "QWord")]
-        $PropertyType
+        $PropertyType,
+        # Parameter needed to overwrite an registry key.
+        [Parameter()]
+        [switch][bool]
+        $Force
 
     )
 
@@ -44,6 +49,16 @@ function Set-RegistryKey {
         }
 
         Write-Verbose "Setting $RegistryKey\$Name to $PropertyType Value $Value "
+
+        $ItemProperty = @{
+            New-ItemProperty -Path $Key `
+            -PropertyType $PropertyType `
+            -Name $Name `
+            -Value $Value `
+            -Force `
+            -ErrorAction "Stop"
+        }
+
         New-ItemProperty -Path $Key `
             -PropertyType $PropertyType `
             -Name $Name `
@@ -56,3 +71,5 @@ function Set-RegistryKey {
     }
 
 }
+
+Set-RegistryKey -RegistryKey "HKEY_LOCAL_MACHINE\SOFTWARE\GitForWindows\InstallPath2" -Value "C:\example" -PropertyType String

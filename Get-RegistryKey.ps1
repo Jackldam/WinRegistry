@@ -1,29 +1,27 @@
 function Get-RegistryKey {
     <#
     .SYNOPSIS
-        Short description
+        Get the current value of an registrykey
     .DESCRIPTION
-        Long description
+        Get the current value of an registrykey
     .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
+        PS C:\> Get-RegistryKey "hklm\SOFTWARE\GitForWindows\InstallPath"
+
+        C:\Program Files\Git
+    .EXAMPLE
+        PS C:\> Get-RegistryKey "HKEY_LOCAL_MACHINE\SOFTWARE\GitForWindows\InstallPath"
+
+        C:\Program Files\Git
     .NOTES
-        General notes
+        25-12-2021 jack den Ouden <jack@ldam.nl>
+        Function created, tested and verified as functional.
     #>
     [CmdletBinding()]
     param (
         # Key
         [Parameter(Mandatory)]
         [string]
-        $RegistryKey,
-        # Parameter help description
-        [Parameter()]
-        [switch][bool]
-        $List
+        $RegistryKey
     )
 
     $Name = Split-Path $RegistryKey -Leaf
